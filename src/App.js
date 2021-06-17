@@ -5,10 +5,12 @@ import { Crear } from "./components/Crear";
 const App = () => {
   const [personajes, setPersonajes] = useState(personajesDatos);
   const ids = useRef(null);
-  ids.current = personajes[personajes.length - 1].id + 1;
+  console.log(personajes);
   const [mostrar, setMostrar] = useState(false);
   const actualizar = (e, nombre, localizacion, especie, imagen) => {
     e.preventDefault();
+    ids.current =
+      personajes === [] ? personajes[personajes.length - 1].id + 1 : 0;
     setPersonajes([
       ...personajes,
       {
@@ -64,7 +66,7 @@ const App = () => {
       </header>
       <main className="container position-relative container-general mb-5">
         <ul className="row justify-content-between">
-          {personajes !== [""] &&
+          {personajes !== [] &&
             personajes.map((personaje) => (
               <Tarjeta
                 key={personaje.id}
