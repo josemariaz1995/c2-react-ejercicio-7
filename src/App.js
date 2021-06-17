@@ -1,35 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { personajesDatos } from "./data/personajes";
 import { Tarjeta } from "./components/Tarjeta";
 import { Crear } from "./components/Crear";
 const App = () => {
   const [personajes, setPersonajes] = useState(personajesDatos);
-  const ultimaID = personajes[personajes.length - 1].id + 1;
-  /*  , setUltimaID] = useState(
-    personajes[personajes.length - 1].id + 1
-  ); */ /* 
+  const [ultimaID, setUltimaID] = useState(0);
+  useEffect(
+    () => setUltimaID(personajes[personajes.length - 1].id + 1),
+    [personajes]
+  );
 
-  console.log(ultimaID); */
+  /*   let ultimaID = ; */
   const [mostrar, setMostrar] = useState(false);
   const [crear, setCrear] = useState({
-    id: ultimaID,
+    id: "",
     name: "",
     location: {
       name: "",
     },
     species: "",
   });
-  const actualizar = (nombre, localizacion, especie, imagen) => {
-    setCrear({
-      ...crear,
-      name: nombre,
-      location: {
-        name: localizacion,
-      },
-      species: especie,
-      image: imagen,
+  console.log(ultimaID);
+  const actualizar = (e, nombre, localizacion, especie, imagen) => {
+    e.preventDefault();
+    setCrear((crear) => {
+      return {
+        ...crear,
+        id: ultimaID,
+        name: nombre,
+        location: {
+          name: localizacion,
+        },
+        species: especie,
+        image: imagen,
+      };
     });
-    setPersonajes({ ...crear });
+
+    setPersonajes([...personajes, crear]);
   };
   const modificarPersonaje = (id, nombre, especie, localizacion) => {
     setPersonajes((personaje) => {
