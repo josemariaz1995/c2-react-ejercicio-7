@@ -56,7 +56,7 @@ export const Crear = (props) => {
         </div>
         <button
           className="btn btn-info"
-          onClick={() => actualizar(nombre, ubicacion, especie, imagen)}
+          onClick={(e) => actualizar(e, nombre, ubicacion, especie, imagen)}
         >
           Crear
         </button>
