@@ -10,14 +10,21 @@ export const Tarjeta = (props) => {
       species,
     },
     modificarPersonaje,
+    eliminarPersonaje,
   } = props;
   const [nombre, setNombre] = useState(name);
   const [ubicacion, setUbicacion] = useState(localizacion);
   const [especie, setEspecie] = useState(species);
   return (
     <>
-      <li className="col-sm-3 mt-5 py-5 bg-dark tarjeta text-white shadow">
-        <div className="row align-items-center ">
+      <li className="col-sm-3 mt-5 py-5 bg-dark tarjeta text-white shadow  position-relative px-3">
+        <div className="row align-items-center">
+          <span
+            onClick={() => eliminarPersonaje(id)}
+            className="position-absolute eliminar"
+          >
+            x
+          </span>
           <div className="col-sm-5">
             <img src={image} className="rounded mx-auto img-fluid" alt={name} />
           </div>

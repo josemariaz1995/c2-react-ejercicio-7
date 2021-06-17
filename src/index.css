@@ -27,6 +27,7 @@ img {
   border-radius: 10px;
 }
 .crear {
+  width: 500px !important;
   border-top-right-radius: 25px !important;
   border-bottom-right-radius: 25px !important;
   border-bottom-left-radius: 25px !important;
@@ -34,18 +35,35 @@ img {
   top: 100px;
 }
 .editar {
+  border-bottom: 3px solid #32383e !important;
+  box-shadow: none !important;
   background-color: inherit;
+  border: 0;
+  border-radius: 0;
   color: white;
 }
+.editar:hover {
+  border-bottom: 3px solid white !important;
+}
 .editar:focus {
-  border: 3px solid rgb(16, 115, 245);
+  border-bottom: 3px solid rgb(16, 115, 245) !important;
   background-color: white;
   color: rgb(71, 66, 66);
 }
+
 .container-general {
   margin-top: 250px;
 }
 .cabecera {
   top: 0;
   z-index: 2000;
+}
+.eliminar {
+  cursor: pointer;
+  font-size: 20px;
+  right: 20px;
+  top: 10px;
+}
+.eliminar:hover {
+  color: rgb(199, 39, 39);
 }
