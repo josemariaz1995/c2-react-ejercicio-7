@@ -4,24 +4,14 @@ import { Tarjeta } from "./components/Tarjeta";
 import { Crear } from "./components/Crear";
 const App = () => {
   const [personajes, setPersonajes] = useState(personajesDatos);
-
-  const [ultimaID, setUltimaID] = useState(0);
   const ids = useRef(null);
   ids.current = personajes[personajes.length - 1].id + 1;
   const [mostrar, setMostrar] = useState(false);
-  const [crear, setCrear] = useState({
-    id: ids.current,
-    name: "",
-    location: {
-      name: "",
-    },
-    species: "",
-  });
   const actualizar = (e, nombre, localizacion, especie, imagen) => {
     e.preventDefault();
-    setCrear((crear) => {
-      return {
-        ...crear,
+    setPersonajes([
+      ...personajes,
+      {
         id: ids.current,
         name: nombre,
         location: {
@@ -29,10 +19,8 @@ const App = () => {
         },
         species: especie,
         image: imagen,
-      };
-    });
-
-    setPersonajes([...personajes, { ...crear }]);
+      },
+    ]);
   };
   const eliminarPersonaje = (id) => {
     setPersonajes(personajes.filter((personaje) => personaje.id !== id));
