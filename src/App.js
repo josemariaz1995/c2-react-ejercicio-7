@@ -1,16 +1,47 @@
-import { useRef, useState } from "react";
-import { personajesDatos } from "./data/personajes";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Tarjeta } from "./components/Tarjeta";
 import { Crear } from "./components/Crear";
+import { Slider } from "./components/Slider";
+import { PersonajeContext } from "./context/PersonajeContext";
+import { GrPrevious, GrNext } from "react-icons/gr";
+
 const App = () => {
-  const [personajes, setPersonajes] = useState(personajesDatos);
+  const [array, setArray] = useState([1, 2, 3, 4, 5]);
+  const [personajes, setPersonajes] = useState([]);
+  const [paginas, setPaginas] = useState(0);
+  const [numero, setNumero] = useState(0);
+  const urlApi = `https://rickandmortyapi.com/api/character?page=${paginas}`;
   const ids = useRef(null);
-  console.log(personajes);
   const [mostrar, setMostrar] = useState(false);
+  const siguiente = () => {
+    if (array[array.length - 1] === numero) {
+      return;
+    } else {
+      setArray(array.map((numero) => numero + 1));
+    }
+  };
+  const atras = () => {
+    if (array[0] === 1) {
+      return;
+    } else {
+      setArray(array.map((numero) => numero - 1));
+    }
+  };
+
+  const llamadaApi = useCallback(async (urlApi) => {
+    const response = await fetch(urlApi);
+    const personajesApi = await response.json();
+    setPersonajes(personajesApi.results);
+    setNumero(personajesApi.info.pages);
+  }, []);
+  useEffect(() => {
+    llamadaApi(urlApi);
+  }, [llamadaApi, urlApi]);
+
   const actualizar = (e, nombre, localizacion, especie, imagen) => {
     e.preventDefault();
     ids.current =
-      personajes === [] ? personajes[personajes.length - 1].id + 1 : 0;
+      personajes !== [] ? personajes[personajes.length - 1].id + 1 : 0;
     setPersonajes([
       ...personajes,
       {
@@ -49,7 +80,7 @@ const App = () => {
   };
   return (
     <>
-      <header className="vw-100 bg-dark p-5 text-white d-flex justify-content-between align-items-center position-fixed border-bottom shadow-lg cabecera">
+      <header className="cabecera vw-100 bg-dark p-3 p-lg-5 text-white border-bottom shadow-lg ">
         <div className="postion-realtive">
           <button className="btn btn-info" onClick={() => setMostrar(!mostrar)}>
             Crear Personaje
@@ -62,21 +93,37 @@ const App = () => {
             />
           )}
         </div>
-        <h1>Rick y Morty</h1>
+        <h1 className="text-right">Rick y Morty</h1>
       </header>
-      <main className="container position-relative container-general mb-5">
-        <ul className="row justify-content-between">
-          {personajes !== [] &&
-            personajes.map((personaje) => (
-              <Tarjeta
-                key={personaje.id}
-                eliminarPersonaje={eliminarPersonaje}
-                personaje={personaje}
-                modificarPersonaje={modificarPersonaje}
-              />
-            ))}
-        </ul>
-      </main>
+
+      <PersonajeContext.Provider value={{ personajes }}>
+        <main className="container-fluid position-relative container-general mb-2">
+          <ul className="row tarjetas">
+            {personajes !== [] &&
+              personajes.map((personaje) => (
+                <Tarjeta
+                  key={personaje.id}
+                  eliminarPersonaje={eliminarPersonaje}
+                  personaje={personaje}
+                  modificarPersonaje={modificarPersonaje}
+                />
+              ))}
+          </ul>
+          <div className="justify-content-center align-items-center d-flex mt-4">
+            <ul className="row d-flex slider text-center ">
+              <li className="col btn-info" onClick={atras}>
+                <GrPrevious />
+              </li>
+              {array.map((numero, i) => (
+                <Slider key={i} setPaginas={setPaginas} numero={numero} />
+              ))}
+              <li className="col btn-info" onClick={siguiente}>
+                <GrNext />
+              </li>
+            </ul>
+          </div>
+        </main>
+      </PersonajeContext.Provider>
     </>
   );
 };

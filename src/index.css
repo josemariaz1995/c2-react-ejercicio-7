@@ -17,15 +17,38 @@ li {
   padding: 0;
   margin: 0;
 }
-li {
-  min-width: 500px;
-}
-img {
-  border: 5px solid white;
-}
+
 .tarjeta {
   border-radius: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  max-width: 400px !important;
 }
+.tarjeta,
+.tarjeta input {
+  font-size: 16px;
+}
+
+img {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  min-width: 190px !important;
+}
+/* .div-imagen {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+img {
+  top: 0;
+  left: 0;
+  position: absolute;
+} */
+label {
+  margin: 0;
+}
+
 .crear {
   width: 500px !important;
   border-top-right-radius: 25px !important;
@@ -47,23 +70,86 @@ img {
 }
 .editar:focus {
   border-bottom: 3px solid rgb(16, 115, 245) !important;
-  background-color: white;
-  color: rgb(71, 66, 66);
+  background-color: inherit;
+  color: white;
+}
+.info {
+  color: white;
+  padding: 20px 25px;
+  display: flex;
 }
 
 .container-general {
-  margin-top: 250px;
+  margin-top: 180px;
 }
 .cabecera {
   top: 0;
-  z-index: 2000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 2001;
 }
 .eliminar {
   cursor: pointer;
   font-size: 20px;
-  right: 20px;
-  top: 10px;
+  right: 10px;
+  top: 0px;
+  z-index: 2000;
 }
 .eliminar:hover {
   color: rgb(199, 39, 39);
+}
+.slider {
+  /*  border: 3px solid rgb(70, 69, 69); */
+  border-radius: 12px;
+  margin: 0;
+  width: 500px;
+}
+.slider > li {
+  border-right: 1px solid rgb(97, 96, 96);
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+.slider > li {
+  border-right: 1px solid rgb(97, 96, 96);
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+.slider > li:nth-child(2):hover,
+.slider > li:nth-child(3):hover,
+.slider > li:nth-child(4):hover,
+.slider > li:nth-child(5):hover,
+.slider > li:nth-child(6):hover {
+  background-color: rgb(97, 96, 96) !important;
+}
+.slider > li:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.slider > li:last-child {
+  border: none;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media (max-width: 1280px) {
+  .tarjeta,
+  .tarjeta input {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  img {
+    min-width: 150px !important;
+    max-width: 150px !important;
+  }
+  .cabecera {
+    padding: 15px !important;
+  }
+  h1 {
+    font-size: 30px !important;
+  }
 }

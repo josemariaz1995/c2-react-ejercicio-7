@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PersonajeContext } from "../context/PersonajeContext";
 
 export const Tarjeta = (props) => {
+  const { personajes } = useContext(PersonajeContext);
+  console.log(personajes);
   const {
     personaje: {
       image,
@@ -17,21 +20,20 @@ export const Tarjeta = (props) => {
   const [especie, setEspecie] = useState(species);
   return (
     <>
-      <li className="col-sm-3 mt-5 py-5 bg-dark tarjeta text-white shadow  position-relative px-3">
-        <div className="row align-items-center">
+      <li className="col-12 col-lg-4 info">
+        <img src={image} className="p-0" alt={name} />
+        <div className="row align-items-center tarjeta  bg-dark shadow  position-relative ">
           <span
             onClick={() => eliminarPersonaje(id)}
             className="position-absolute eliminar"
           >
             x
           </span>
-          <div className="col-sm-5">
-            <img src={image} className="rounded mx-auto img-fluid" alt={name} />
-          </div>
-          <div className="col-sm-7 form-group">
+
+          <div className="col-sm-12 form-group">
             <div className="row align-items-center">
-              <label className="col-4 m-auto">Nombre:</label>
-              <div className="col-8 mt-2">
+              <label className="col-4">Nombre:</label>
+              <div className="col-8 ">
                 <input
                   type="text"
                   className="form-control editar"
@@ -39,8 +41,8 @@ export const Tarjeta = (props) => {
                   onChange={(e) => setNombre(e.target.value)}
                 />
               </div>
-              <label className="col-4 m-auto">Localización:</label>
-              <div className="col-8 mt-2">
+              <label className="col-4">Localización:</label>
+              <div className="col-8 ">
                 <input
                   type="text"
                   className="form-control editar"
@@ -49,8 +51,8 @@ export const Tarjeta = (props) => {
                 />
               </div>
 
-              <label className="col-4 m-auto">Especie:</label>
-              <div className="col-8 mt-2">
+              <label className="col-4">Especie:</label>
+              <div className="col-8 ">
                 <input
                   type="text"
                   className="form-control editar"
